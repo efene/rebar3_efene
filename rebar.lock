@@ -1,0 +1,16 @@
+{"1.1.0",
+[{<<"aleppo">>,{pkg,<<"aleppo">>,<<"0.9.0">>},2},
+ {<<"ast_walk">>,{pkg,<<"ast_walk">>,<<"0.1.0">>},2},
+ {<<"efene">>,{pkg,<<"efene">>,<<"0.9.9">>},1},
+ {<<"rebar3_efene_compile">>,{pkg,<<"rebar3_efene_compile">>,<<"0.1.3">>},0},
+ {<<"rebar3_efene_ct">>,{pkg,<<"rebar3_efene_ct">>,<<"0.1.0">>},0},
+ {<<"rebar3_efene_shell">>,{pkg,<<"rebar3_efene_shell">>,<<"0.1.1">>},0}]}.
+[
+{pkg_hash,[
+ {<<"aleppo">>, <<"43B4EC269FA136E39DCECBD4323D4346E0EF069A62528A9154F1BB3ACD26E3E4">>},
+ {<<"ast_walk">>, <<"443AFF160305A091AA866C7CD82C0AEBF675A70AA7B25D817707EF4A94EB6AEB">>},
+ {<<"efene">>, <<"925E07C57C2C23C1D47EA81A35377515A935AF640DE56B1C198D8A87AC45479F">>},
+ {<<"rebar3_efene_compile">>, <<"73BE48A69405EB2812344244F510F295AC97C0D8F0CD53F1E055280BE4FA9A79">>},
+ {<<"rebar3_efene_ct">>, <<"9396C154A89E2BFB4BFC3B33F1F64969F93A7BBE8707E8A70D7D7E8D3C82D543">>},
+ {<<"rebar3_efene_shell">>, <<"0B9407943C588A89EE6EA077F49C8B3ABC9271308EFF1EB2DFCBAACCEFCC1ED3">>}]}
+].

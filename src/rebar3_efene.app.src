@@ -1,0 +1,10 @@
+{application,rebar3_efene,
+             [{description,"Rebar3 plugin for efene"},
+              {vsn,"0.1.0"},
+              {registered,[]},
+              {applications,[kernel,stdlib]},
+              {env,[]},
+              {modules,[]},
+              {maintainers,["Mariano Guerra"]},
+              {licenses,["APL"]},
+              {links,[{"Github","https://github.com/efene/rebar3_efene"}]}]}.
