@@ -8,7 +8,7 @@
 #
 # (run from /home/mariano/src/efene). OTP_VERSION is bumped one major at a time;
 # each value is a baseline that builds with no warnings or errors.
-ARG OTP_VERSION=23
+ARG OTP_VERSION=24
 FROM erlang:${OTP_VERSION}
 
 WORKDIR /app
