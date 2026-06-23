@@ -16,9 +16,10 @@ OTP).
 
 - `rebar3_efene_compile.erl` — hex `rebar3_efene_compile` 0.1.9, unmodified.
 - `rebar3_efene_ct.erl` — hex `rebar3_efene_ct` 0.1.2, unmodified.
-- `rebar3_efene_shell.erl` — hex `rebar3_efene_shell` 0.1.2. One patch: the two
-  `erlang:get_stacktrace/0` calls (removed in OTP 24) were replaced with the
-  modern `catch Class:Reason:Stack` syntax. The provider still uses the old
-  `tty_sl`/`user_drv` shell startup, which was rewritten in OTP 26; that only
-  affects `rebar3 efene shell` at runtime (it is guarded by a try/catch
-  fallback) and is left for a later, dedicated update.
+- `rebar3_efene_shell.erl` — hex `rebar3_efene_shell` 0.1.2, with three patches:
+  the two `erlang:get_stacktrace/0` calls (removed in OTP 24) now use the modern
+  `catch Class:Reason:Stack` syntax; the two legacy `catch Expr` expressions
+  (deprecated in OTP 29) use `try ... catch`; and the shell startup now picks
+  between the old `tty_sl`/`user_drv` path (OTP < 26) and
+  `shell:start_interactive/1` (OTP >= 26, after the IO system rewrite), so
+  `rebar3 efene shell` no longer crashes on modern OTP.

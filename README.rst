@@ -42,6 +42,6 @@ The ``rebar3_efene_compile``/``ct``/``shell`` providers are vendored under
 Compatibility
 -------------
 
-Builds on Erlang/OTP 22 through 29. ``rebar3 efene shell`` still uses the old
-``tty_sl``/``user_drv`` shell startup, which was rewritten in OTP 26; the
-``compile`` and ``ct`` providers are unaffected.
+Builds on Erlang/OTP 22 through 29. ``rebar3 efene shell`` uses the
+``tty_sl``/``user_drv`` startup on OTP < 26 and ``shell:start_interactive/1`` on
+OTP >= 26 (the rewritten IO system).

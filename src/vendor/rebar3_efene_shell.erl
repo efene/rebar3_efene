@@ -102,17 +102,35 @@ info() ->
     "Start a shell with project and deps preloaded similar to~n'erl -pa ebin -pa deps/*/ebin'.~n".
 
 setup_shell(ShellArgs) ->
-    OldUser = kill_old_user(),
-    %% Test for support here
-    NewUser = try erlang:open_port({spawn,"tty_sl -c -e"}, []) of
-        Port when is_port(Port) ->
-            true = port_close(Port),
-            setup_new_shell(ShellArgs)
-    catch
-        error:_ ->
-            setup_old_shell()
-    end,
-    rewrite_leaders(OldUser, NewUser).
+    code:ensure_loaded(shell),
+    case erlang:function_exported(shell, start_interactive, 0) of
+        false ->
+            %% OTP < 26: take down the existing `user` port and start a new
+            %% TTY-backed shell running the efene REPL.
+            OldUser = kill_old_user(),
+            %% Test for support here
+            NewUser = try erlang:open_port({spawn,"tty_sl -c -e"}, []) of
+                Port when is_port(Port) ->
+                    true = port_close(Port),
+                    setup_new_shell(ShellArgs)
+            catch
+                error:_ ->
+                    setup_old_shell()
+            end,
+            rewrite_leaders(OldUser, NewUser);
+        true ->
+            %% OTP >= 26: the IO system was rewritten (prim_tty/user_drv), so
+            %% the old port-killing hack no longer applies. Ask the shell to
+            %% start interactively with the efene REPL as the initial shell.
+            ok = start_interactive(ShellArgs)
+    end.
+
+%% Start the OTP >= 26 interactive shell. With no custom args, boot the efene
+%% REPL; otherwise honour the user-provided shell args.
+start_interactive(undefined) ->
+    shell:start_interactive({fn_repl, start, []});
+start_interactive(ShellArgs) ->
+    apply(shell, start_interactive, ShellArgs).
 
 kill_old_user() ->
     OldUser = whereis(user),
