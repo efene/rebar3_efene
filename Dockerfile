@@ -1,19 +1,27 @@
 # Build environment for the rebar3_efene plugin.
-# Stage 1 baseline: an Erlang/OTP close to the last commit (2018-05), so the
-# plugin and its hex deps build with the fewest possible changes. Later stages
-# bump OTP_VERSION one major at a time.
 #
-# Note: rebar3 contemporary with the commit (3.6.x) can no longer resolve deps
-# from hex.pm because the package registry format it used was retired, so we
-# use the rebar3 bundled in the official erlang image (still period-appropriate
-# enough and able to talk to current hex).
-ARG OTP_VERSION=21
+# IMPORTANT: build with the PARENT efene repo as the context, so the fixed,
+# self-contained efene can be supplied as a rebar3 _checkouts override:
+#
+#   docker build -f rebar3_efene/Dockerfile \
+#                --build-arg OTP_VERSION=29 -t r3efene:otp29 .
+#
+# (run from /home/mariano/src/efene). OTP_VERSION is bumped one major at a time;
+# each value is a baseline that builds with no warnings or errors.
+ARG OTP_VERSION=23
 FROM erlang:${OTP_VERSION}
 
-RUN rebar3 --version
-
 WORKDIR /app
-COPY . .
 
-# Compile the plugin and its dependency tree.
+# The fixed efene (vendors aleppo + ast_walk, no external deps) as a local
+# checkout override, so no unmaintained packages are fetched from hex.
+COPY src           _checkouts/efene/src
+COPY include       _checkouts/efene/include
+COPY rebar.config  _checkouts/efene/rebar.config
+
+# The plugin itself (sub-plugins are vendored under src/vendor/).
+COPY rebar3_efene/src          src
+COPY rebar3_efene/rebar.config rebar.config
+
+# Compile the plugin against the checked-out efene.
 RUN rebar3 compile
