@@ -1,6 +1,6 @@
 {application,rebar3_efene,
-             [{description,"Rebar3 plugin to compile, test and run efene code"},
-              {vsn,"0.2.1"},
+             [{description,"Rebar3 plugin to compile, format, test and run efene code"},
+              {vsn,"0.3.0"},
               {registered,[]},
               {applications,[kernel,stdlib]},
               {env,[]},
