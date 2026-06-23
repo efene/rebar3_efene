@@ -5,4 +5,5 @@
 init(State) ->
     {ok, State1} = rebar3_efene_compile:init(State),
     {ok, State2} = rebar3_efene_ct:init(State1),
-    rebar3_efene_shell:init(State2).
+    {ok, State3} = rebar3_efene_shell:init(State2),
+    rebar3_efene_fmt:init(State3).
